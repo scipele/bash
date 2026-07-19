@@ -3,11 +3,11 @@
 # ==========================================
 # DEFINE YOUR SEARCH AND REPLACEMENT STRINGS
 # ==========================================
-echo "This script loops thru all (.docx and .xlsx) files and replaces the text strings as noted in the REPLACEMENTS section below"
-echo "- Step 1: program temporarily unzips the contents of the Microsoft zip format into a $temp_dir"
-echo "- Step 2: uses the sed bash command - to replace the text in the 'REPLACEMENTS' sections"
+echo "This script loops thru all (.docx and .xlsx) files and replaces the text strings as noted in the REPLACEMENTS section"
+echo "- Step 1: program temporarily unzips the contents of the Microsoft zip format into a temp_dir"
+echo "- Step 2: uses sed - to replace the text in the 'REPLACEMENTS' sections in a loop"
 echo "- Step 3: re-zips the files"
-echo "by jas, 7/18/2026"
+echo -e "by jas, 7/18/2026\n"
 
 declare -A REPLACEMENTS=(
     ["\$client_name"]="Company ABC"
@@ -41,7 +41,12 @@ find . -maxdepth 1 \( -name "*.docx" -o -name "*.xlsx" \) | while read -r file; 
         # Loop through each search key in the array
         for search in "${!REPLACEMENTS[@]}"; do
             replace="${REPLACEMENTS[$search]}"
-            
+            # how can i echo if the search string is found in the xml_target file?
+            if grep -q "$search" "$temp_dir/$xml_target"; then
+                echo "Found '$search' in $xml_target, replacing with '$replace'."
+            else
+                echo "Warning: '$search' not found in $xml_target."
+            fi
             # Escape slashes in the replacement string to prevent sed errors
             escaped_replace=$(echo "$replace" | sed 's/\//\\\//g')
             
