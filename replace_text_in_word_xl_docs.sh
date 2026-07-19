@@ -10,8 +10,8 @@ echo "- Step 3: re-zips the files"
 echo "by jas, 7/18/2026"
 
 declare -A REPLACEMENTS=(
-    ["\$client_name"]="Valero Port Arthur Refinery"
-    ["\$proj_title"]="Fire Water Tank Replacement"
+    ["\$client_name"]="Company ABC"
+    ["\$proj_title"]="Project Ghost Rider"
     ["\$proposal_date"]="July 27, 2026"
 )
 
