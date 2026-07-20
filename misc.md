@@ -1,26 +1,73 @@
 # Some Useful Bash Terminal Commands
 
-<div class="code-wrapper">
-  <button class="copy-button">Copy</button>
-  <pre><code>echo "Hello World"</code></pre>
-</div>
-
-
-
 ## A
+```bash
+awk -F ',' '{print $1, $4}' users.csv  # print 2nd/4th columns using 'commas separ', use the -F flag to tell awk to split columns:
+# awk stands for the last names of the three computer scientists who created it at Bell Labs in 1977:Aho (Alfred Aho)Weinberger (Peter # Weinberger)Kernighan (Brian Kernighan)
+```
 ## B
+```bash
+bc    # starts a command line calculator
+```
 ## C
 ```bash
-chmod 777 fileName  # Changes file priveledges for all users to read/write/execute
+# The following requires installation of ncal
+cal -y        # Display's a year calendar
+cal -y 2027   # Display's a year calendar for a specific year
 
+# merge all into one single file, keep the header from the first file and append only the data from the second file.
+cat f1.csv <(tail -n +2 f2.csv) > combined.csv
+
+# lists the text in a file, then sorts the lines, provides only the unique lines (required prior sort)
+cat f1.csv | sort | uniq
+
+# Create a new text file and add content to it, you can use the following command:
+cat > filename.txt # Then type text that you want to add on as many lines as you want
+Line 1
+Line 2
+# Press Ctrl+D to save and exit.
+
+# To append content to an existing text file, you can use the following command:
+cat >> filename.txt
+  Add Line 3
+  Add Line 4
+  ## Press Ctrl+D to save and exit.
+
+# changing file priveliges:
+chmod 777 fileName  # Changes file priveledges for all users to read/write/execute (Usually frowned upon for security reasons)
+#     |||
+#     ||+--- Represents the Owner of the file
+#     |+---- Respresents the Group the file belongs to
+#     +----- Represents Others (anyone else on the system)
+#  Numeric Values are octal representations with the following meanings:
+The numbers are calculated by adding the assigned values for Read (4), Write (2), and Execute (1).
+# 0 - No permissions (---)
+# 1 - Execute only (--x)
+# 2 - Write only (-w-)
+# 3 - Write and Execute (-wx)
+# 4 - Read only (r--)
+# 5 - Read and Execute (r-x)
+# 6 - Read and Write (rw-)
+# 7 - Read, Write, and Execute (rwx)
+chmod 644 document.txt      # Owner can read and write; Group and Others can only read
+chmod 600 private.key       # Owner can read and write; Group and Others have zero access
+chmod -R 755 /var/www/html  # Applies the permissions to the folder, subfolders, and all contained files
+chmod +x script.sh          # Adds execute permission for all users
+chmod u+w report.txt        # Adds write permission for the owner only
+chmod g-w,o-r data.log      # Removes group write and removes others read simultaneously
+chmod o=r public.txt        # Sets others permission strictly to read-only
+
+cd ~/Documents  # Changes the current path to ('~' Shortcut to User) and other folder
+cd ..           # Go Back one level
+cd              # Go back to home folder
+cd ~            # Go Back to home folder
+cd ../.. – Moves up two levels at once.
 ```
-### cat (concatenate):
-```bash
-cat > f1.txt  # creates a text file
-cat >> f1.txt  # appends to a text file
-```
----
 ## D
+```bash
+echo $(( ( $(date -d "2026-12-25" +%s) - $(date -d "2026-07-19" +%s) ) / 86400 )) # Computes number of days between two dates
+# you can also dowload 'dateutils'
+```
 ## E
 ```bash
 echo "text to be added to the file" > f1.txt # places text in a text file
@@ -28,121 +75,160 @@ echo "text to be added to the file" > f1.txt # places text in a text file
 ## F
 ```bash
 find . -type f -exec stat --printf='%y %12s %n\n' {} + #
+# .  Starts a search in the current directory (.)
+# -type f: Filters the search to look only for regular files (excluding directories or links).
+# -exec ... {} +: Runs the specified command (stat) on all the files found, grouping them together for speed.stat: A utility used to display detailed file or file system status.
+# --printf="...": Formats the output using specific placeholders (similar to the programming language C):
+# %y: Displays the human-readable date and time of the last data modification. %12s: Displays the file size in bytes, padded with spaces to be exactly 12 characters wide 
+# %n: Displays the file name (including its relative path).\n: Moves to a new line for each file.
+
+find . -type f,             # This recursively finds all regular files (excluding directories) starting from the current directory (.).
+find . -name "my_file.txt"  # find file by name
+find . -type f -exec sha1sum {} + | sort | uniq -w 40 -D  # hash files showing only duplicates
+
+# remove duplicates recursively based on sha1 hashes
+find . -type f -exec sha1sum {} + | sort | awk 'BEGIN {FS="  "} {hash=$1; file=substr($0, 43); if (seen[hash]++) { print "Deleting: " file; system("rm \"" file "\"") } else { print "Keeping:  " file }}'
+
+# list bare file names only (without paths) in the current directory and its subdirectories:
+find . -type f -printf "%f\n" > list.txt
+# find .,                # Searches recursively starting from the current directory (.).
+# -type f,               Restricts the results to only files (excluding directories).
+# -printf "%f\n",        Prints only the bare filename (%f) followed by a newline character (\n) for each result. 
+# > list.txt,            Redirects the output to a file named 'list.txt'.
+
+# List the file name and the content of each file
+for file in f1.csv f2.csv; do echo "Filename: $file"; cat "$file"; echo ""; done
 ```
-- .  Starts a search in the current directory (.)
-- -type f: Filters the search to look only for regular files (excluding directories or links).
-- -exec ... {} +: Runs the specified command (stat) on all the files found, grouping them together for speed.stat: A utility used to display detailed file or file system status.
-- --printf="...": Formats the output using specific placeholders (similar to the programming language C):
-- %y: Displays the human-readable date and time of the last data modification. %12s: Displays the file size in bytes, padded with spaces to be exactly 12 characters wide 
-- %n: Displays the file name (including its relative path).\n: Moves to a new line for each file.
-
-```bash
-find . -type f,  # This recursively finds all regular files (excluding directories) starting from the current directory (.).
-```
-
-
 ## G
-## H
-## I
-## J
-## K
-## L
-> ls    // lists files
-## M
-## N
-## O
-## P
-### pipe ('|') works
-- A bash pipe (|) sends the output of the first command as the input to the second command.
 ```bash
+grep -r "search_string" .     # search string in files within the current dir and its subdirectories (-r):
+```
+## H
+```bash
+head -n 10 filename.txt   # Displays the first 10 lines of the file
+```
+## I
+```bash
+info  # Reads documentation and manuals in the Info format (similar to man).
+```
+## J
+```bash
+join -t, file1.csv file2.csv
+join  # Merges lines of two sorted files based on a common database field.
+```
+## K
+```bash
+kill # : Sends a specific signal (like termination or manual stop) to a running process ID (PID).
+```
+## L
+```bash
+ls                          # lists files
+ls -l                       # lists files long format
+ls -R                       # lists files recursively
+ls -lR                      # lists files in long format and recursively
+ls -laR                     # lists files in long format and recursively
+ls -R /path/to/directory    # Target a specific path
+```
+## M
+```bash
+mkdir "my folder name"      # create folder that has spaces in it
+mkdir my_folder             # create folder that does not have spaces in it
+```
+## N
+```bash
+nano filename.txt           # edit a text file
+nl | grep -n "hat" *.txt    # shows the line number of any *.txt
+
+# use combination of nl and grep to search for a specific string in all files 
+# within the current directory and its subdirectories, while also displaying line numbers:
+# how about the working director only? use -maxdepth 1 to limit the search to the current directory only
+nl -ba -s ': ' $(find . -maxdepth 1 -type f) | grep "search_string"
+```
+## O
+```bash
+# Operator '>'
+> 'out.txt'     # Redirects the output from the terminal to a file
+
+# pipe operator ('|') sends the output of the first command as the input to the second command
 ls | grep "contact" # list file names in the current path that contain 'contact' in the filename 
 ```
-ls lists all files
-- grep filters that list to show only files containing the word "report".
+## P
+```bash
+pwd       # Print Working Directory
+```
 
 ## Q
 ## R
-## S
-### hash files in path
 ```bash
-sha1sum * # This hashes all files in the current path
+rmdir "my folder name"      # remove folder that has spaces in it
+rmdir my_folder             # remove folder that does not have spaces in it
 ```
-### hash files showing only duplicates
-find . -type f -exec sha1sum {} + | sort | uniq -w 40 -D
-### remove duplicates recursively based on sha1 hashes
-find . -type f -exec sha1sum {} + | sort | awk 'BEGIN {FS="  "} {hash=$1; file=substr($0, 43); if (seen[hash]++) { print "Deleting: " file; system("rm \"" file "\"") } else { print "Keeping:  " file }}'
+## S
+```bash
+sha1sum * # hashes files in the current path
+```
+
 
 ### find and replace a string in a text file:
-- sed -i 's/old_string/new_string/g' filename.txt   
+```bash
+sed -i 's/old_string/new_string/g' filename.txt   
+sort f1.csv | uniq
+```
 
 ## T
 ```bash
+tail -n 10 filename.txt   # Displays the last 10 lines of the file
+tail -n +2 f1.csv | sort | uniq  # Skips the line 1( i.e. header) with number of lines 2 and greater ('-n +2'), sorts, shows unique only
+
+# tape archive
 tar -cvf zp.tar *.pdf   # zips pdfs to an archive named zp.tar  see typical flags as noted below
+#-c: Create a new archive
+#-x: Extract files from an existing archive
+#-t: List contents of an archive without extracting it
+#-v: Verbose mode; displays progress and file names on-screen
+#-f: Specifies the archive's filename (must always be placed immediately before the filename)
+#-z: Compresses or decompresses using Gzip (.tar.gz or .tgz)
+# -j: Compresses or decompresses using Bzip2 (.tar.bz2)
 ```
-- -c: Create a new archive
-- -x: Extract files from an existing archive
-- -t: List contents of an archive without extracting it
-- -v: Verbose mode; displays progress and file names on-screen
-- -f: Specifies the archive's filename (must always be placed immediately before the filename)
-- -z: Compresses or decompresses using Gzip (.tar.gz or .tgz)
-- -j: Compresses or decompresses using Bzip2 (.tar.bz2)
 ## U
+```bash
+uptime              # shows the uptime for the current user
+uniq                # see usage in other piped commands
+unzip bu.zip *.csv  # unzips the archive into the current path
+unzip ../bu.zip     # unzips the archive in the parent folder to the current folder
+```
 ## V
+```bash
+# Vim is a text editor that requires a download
+vim f1.csv
+x: Delete the single character under the cursor.dd: Delete (cut) the entire current line.u: Undo the last action.Ctrl + r: Redo the last undone action
+.yy: Copy (yank) the current line.p: Paste the copied text below the current line.
+# Saving and Quitting (From Normal Mode) To type these, press
+: first to open the command line at the bottom of the screen
+::w: Save the file (write).
+:q: Quit Vim (fails if you have unsaved changes)
+:wq: Save and quit at the same time.
+:q!: Quit without saving (discards all changes).
+```
 ## W
+```bash
+whoami          # echo the user name
+whereis g++     # provides the path of any file
+wc -c f1.csv    # counts characters
+wc -l f1.csv    # counts lines
+wc -w names.txt # counts words
+```
 ## X
+```bash
+xxd f1.csv # Creates a hex dump of a given file or standard input, or converts a hex dump back into its original binary format.
+xxd -r hex_output.txt restored.bin # Convert Hex Back to Binary:The -r flag stands for "reverse"
+```
 ## Y
+```bash
+yes | rm -i *.txt # Repeatedly outputs a string (or "y" by default) until killed. Used to automate interactive prompts.
+```
 ## Z
+```bash
+zip bu.zip f1.csv f2.csv  # creates a zip of named files
+```
 
-
-
-
-## Various Commands
-Command to list all files in the current directory and its subdirectories,displaying their last modification date, size, and name.  
--   -exec ... {} +,        This executes the specified stat command for the found files. Using + is more efficient than ; as it passes multiple file names at once.
--   stat --printf='...',   The GNU stat command's --printf option allows for highly customizable output using format specifiers.
--   %Y-%m-%d %H:%M:%S,     Formats the file's modification date and time into YYYY-MM-DD HH:MM:SS format.
--   %12s,                  Prints the file size in bytes, right-aligned with a minimum width of 12 characters.
--   %n,                    Prints the file name.
--   \n,                    Inserts a newline character at the end of each line for proper formatting. 
-
-## Command to save the output to a file named 
-- > 'out.txt'
-
-## list bare file names only (without paths) in the current directory and its subdirectories:
-- find . -type f -printf "%f\n" > list.txt
-- Explanation of the command components:
-- find .,                Searches recursively starting from the current directory (.).
-- -type f,               Restricts the results to only files (excluding directories).
-- -printf "%f\n",        Prints only the bare filename (%f) followed by a newline character (\n) for each result. 
-- > list.txt,            Redirects the output to a file named 'list.txt'.
-
-## search for a file named 'my_file.txt' in the current directory and its subdirectories:
-- find . -name "my_file.txt"
-
-## Edit a text file
-- nano filename.txt
-
-## To create a new text file and add content to it, you can use the following command:
-- cat > filename.txt
-  Add Line 1
-  Add Line 2
-  Press Ctrl+D to save and exit.
-
-## To append content to an existing text file, you can use the following command:
-- cat >> filename.txt
-  Add Line 3
-  Add Line 4
-  Press Ctrl+D to save and exit.
-
-
-## using grep to search for a specific string in all files within the current directory and its subdirectories:
-- grep -r "search_string" .
-
-## use combination of nl and grep to search for a specific string in all files 
-# within the current directory and its subdirectories, while also displaying line numbers:
-# how about the working director only? use -maxdepth 1 to limit the search to the current directory only
-- nl -ba -s ': ' $(find . -maxdepth 1 -type f) | grep "search_string"
-
-## Using head/tail to view the first or last few lines of a file:
-- head -n 10 filename.txt   # Displays the first 10 lines of the file
-- tail -n 10 filename.txt   # Displays the last 10 lines of the file
