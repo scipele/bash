@@ -1,5 +1,6 @@
 # Some Useful Bash Terminal Commands
 
+
 ## A
 ```bash
 awk -F ',' '{print $1, $4}' users.csv  # print 2nd/4th columns using 'commas separ', use the -F flag to tell awk to split columns:
@@ -7,7 +8,14 @@ awk -F ',' '{print $1, $4}' users.csv  # print 2nd/4th columns using 'commas sep
 ```
 ## B
 ```bash
-bc    # starts a command line calculator
+bc                                    # calculator  '+/-' add/sub, '*/' mult/div, '^' pwr, sqrt(2.0000), % mod
+bc -l                                 # invokes extended math functions
+echo "scale=4; 10 / 3" | bc           # Out: 3.3333
+pi=$(bc -l <<< "scale=15; 4 * a(1)")  # Computes pi and assigns to var 'pi'
+echo "scale=15; s($pi / 4)" | bc -l   # .707106781186547, see above for 'pi' assignment
+echo "2*c(30*$pi/180)" | bc -l        # Out: 1.73205080756887749994, Solves 30-60-90 Triangle for sqrt(3) side len = sqrt(3)
+echo "scale = 15; sqrt(3)" | bc -l    # Out: 1.732050807568877
+echo "scale=15; 4*a(1)" | bc -l       # 3.14159265358976 (PI)
 ```
 ## C
 ```bash
@@ -56,6 +64,8 @@ chmod +x script.sh          # Adds execute permission for all users
 chmod u+w report.txt        # Adds write permission for the owner only
 chmod g-w,o-r data.log      # Removes group write and removes others read simultaneously
 chmod o=r public.txt        # Sets others permission strictly to read-only
+
+clear                       # clears the screen
 
 cd ~/Documents  # Changes the current path to ('~' Shortcut to User) and other folder
 cd ..           # Go Back one level
@@ -123,8 +133,12 @@ kill # : Sends a specific signal (like termination or manual stop) to a running 
 ```
 ## L
 ```bash
+locate ls
+
+
 ls                          # lists files
 ls -l                       # lists files long format
+ls -1                       # lists files vertically
 ls -R                       # lists files recursively
 ls -lR                      # lists files in long format and recursively
 ls -laR                     # lists files in long format and recursively
@@ -157,8 +171,11 @@ ls | grep "contact" # list file names in the current path that contain 'contact'
 ```bash
 pwd       # Print Working Directory
 ```
-
 ## Q
+```bash
+q         # quits while viewing manual
+quit      # exits the bc calculator
+```
 ## R
 ```bash
 rmdir "my folder name"      # remove folder that has spaces in it
@@ -167,12 +184,10 @@ rmdir my_folder             # remove folder that does not have spaces in it
 ## S
 ```bash
 sha1sum * # hashes files in the current path
-```
+sudu      # Superuser Do, Linux equivalent of clicking "Run as Administrator" in Windows
 
-
-### find and replace a string in a text file:
-```bash
-sed -i 's/old_string/new_string/g' filename.txt   
+# find and replace using 'sed'
+sed -i 's/old_string/new_string/g' filename.txt
 sort f1.csv | uniq
 ```
 
