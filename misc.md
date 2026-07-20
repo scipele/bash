@@ -20,8 +20,8 @@ echo "scale=15; 4*a(1)" | bc -l       # 3.14159265358976 (PI)
 ## C
 ```bash
 # The following requires installation of ncal
-cal -y        # Display's a year calendar
-cal -y 2027   # Display's a year calendar for a specific year
+cal -y                      # Display's a year calendar
+cal -y 2027                 # Display's a year calendar for a specific year
 
 # merge all into one single file, keep the header from the first file and append only the data from the second file.
 cat f1.csv <(tail -n +2 f2.csv) > combined.csv
@@ -180,19 +180,19 @@ nl | grep -n "hat" *.txt    # shows the line number of any *.txt
 ## O
 ```bash
 # Operator '>'
-> 'out.txt'     # Redirects the output from the terminal to a file
+> 'out.txt'                 # Redirects the output from the terminal to a file
 
 # pipe operator ('|') sends the output of the first command as the input to the second command
-ls | grep "contact" # list file names in the current path that contain 'contact' in the filename 
+ls | grep "contact"         # list file names in the current path that contain 'contact' in the filename 
 ```
 ## P
 ```bash
-pwd       # Print Working Directory
+pwd                         # Print Working Directory
 ```
 ## Q
 ```bash
-q         # quits while viewing manual
-quit      # exits the bc calculator
+q                           # quits while viewing manual
+quit                        # exits the bc calculator
 ```
 ## R
 ```bash
@@ -201,8 +201,8 @@ rmdir my_folder             # remove folder that does not have spaces in it
 ```
 ## S
 ```bash
-sha1sum * # hashes files in the current path
-sudu      # Superuser Do, Linux equivalent of clicking "Run as Administrator" in Windows
+sha1sum *                   # hashes files in the current path
+sudu                        # Superuser Do, Linux equivalent of clicking "Run as Administrator" in Windows
 
 # find and replace using 'sed'
 sed -i 's/old_string/new_string/g' filename.txt
@@ -211,25 +211,25 @@ sort f1.csv | uniq
 
 ## T
 ```bash
-tail -n 10 filename.txt   # Displays the last 10 lines of the file
+tail -n 10 filename.txt     # Displays the last 10 lines of the file
 tail -n +2 f1.csv | sort | uniq  # Skips the line 1( i.e. header) with number of lines 2 and greater ('-n +2'), sorts, shows unique only
 
 # tape archive
-tar -cvf zp.tar *.pdf   # zips pdfs to an archive named zp.tar  see typical flags as noted below
-#-c: Create a new archive
-#-x: Extract files from an existing archive
-#-t: List contents of an archive without extracting it
-#-v: Verbose mode; displays progress and file names on-screen
-#-f: Specifies the archive's filename (must always be placed immediately before the filename)
-#-z: Compresses or decompresses using Gzip (.tar.gz or .tgz)
-# -j: Compresses or decompresses using Bzip2 (.tar.bz2)
+tar -cvf zp.tar *.pdf       # zips pdfs to an archive named zp.tar  see typical flags as noted below
+#-c:                        Create a new archive
+#-x:                        Extract files from an existing archive
+#-t:                        List contents of an archive without extracting it
+#-v:                        Verbose mode; displays progress and file names on-screen
+#-f:                        Specifies the archive's filename (must always be placed immediately before the filename)
+#-z:                        Compresses or decompresses using Gzip (.tar.gz or .tgz)
+# -j:                       Compresses or decompresses using Bzip2 (.tar.bz2)
 ```
 ## U
 ```bash
-uptime              # shows the uptime for the current user
-uniq                # see usage in other piped commands
-unzip bu.zip *.csv  # unzips the archive into the current path
-unzip ../bu.zip     # unzips the archive in the parent folder to the current folder
+uptime                      # shows the uptime for the current user
+uniq                        # see usage in other piped commands
+unzip bu.zip *.csv          # unzips the archive into the current path
+unzip ../bu.zip             # unzips the archive in the parent folder to the current folder
 ```
 ## V
 ```bash
@@ -246,24 +246,24 @@ x: Delete the single character under the cursor.dd: Delete (cut) the entire curr
 ```
 ## W
 ```bash
-whoami          # echo the user name
-whereis g++     # provides the path of any file
-wc -c f1.csv    # counts characters
-wc -l f1.csv    # counts lines
-wc -w names.txt # counts words
+whoami                      # echo the user name
+whereis g++                 # provides the path of any file
+wc -c f1.csv                # counts characters
+wc -l f1.csv                # counts lines
+wc -w names.txt             # counts words
 ```
 ## X
 ```bash
-xxd f1.csv                          # Creates a hex dump of a given file or standard input
-xxd -r hex_output.txt restored.bin  # Convert Hex Back to Binary:The -r flag stands for "reverse"
-xxd -b example.bin                  # displays the binary content of the file
+xxd f1.csv                  # Creates a hex dump of a given file or standard input
+xxd -r hex_out.txt hex.bin  # Convert Hex Back to Binary:The -r flag stands for "reverse"
+xxd -b example.bin          # displays the binary content of the file
 ```
 ## Y
 ```bash
-yes | rm -i *.txt # Repeatedly outputs a string (or "y" by default) until killed. Used to automate interactive prompts.
+yes | rm -i *.txt           # Repeatedly outputs a string (or "y" by default) until killed. Used to automate interactive prompts.
 ```
 ## Z
 ```bash
-zip bu.zip f1.csv f2.csv  # creates a zip of named files
+zip bu.zip f1.csv f2.csv    # creates a zip of named files
 ```
 
