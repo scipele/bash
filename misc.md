@@ -44,48 +44,56 @@ cat >> filename.txt
 # changing file permissions:
 chmod 777 fileName  # Changes file priveledges for all users to read/write/execute (Usually frowned upon for security reasons)
 #     |||
-#     ||+---------- Represents the Owner of the file
-#     |+----------- Respresents the Group the file belongs to
-#     +------------ Represents Others (anyone else on the system)
+#     ||+------------------ Represents the Owner of the file
+#     |+------------------- Respresents the Group the file belongs to
+#     +-------------------- Represents Others (anyone else on the system)
 #  Numeric Values are octal representations with the following meanings:
-The numbers are calculated by adding the assigned values for Read (4), Write (2), and Execute (1).
-# 0 - No permissions (---)
-# 1 - Execute only (--x)
-# 2 - Write only (-w-)
-# 3 - Write and Execute (-wx)
-# 4 - Read only (r--)
-# 5 - Read and Execute (r-x)
-# 6 - Read and Write (rw-)
-# 7 - Read, Write, and Execute (rwx)
-# default permissions
-chmod 664 fileName # properties show in this letter format when using ls -l
-# '-rw-rw-r--'
+# The numbers are calculated by adding the assigned octal values for Read (4), Write (2), and Execute (1).
+#                           Description               (chr)   (octal)   
+# 0 ----------------------- No permissions            (---)   (0)
+# 1 ----------------------- Execute only              (--x)   (1)
+# 2 ----------------------- Write only                (-w-)   (2)
+# 3 ----------------------- Write and Execute         (-wx)   (1+2=3)
+# 4 ----------------------- Read only                 (r--)   (4)
+# 5 ----------------------- Read and Execute          (r-x)   (4+1=5)
+# 6 ----------------------- Read and Write            (rw-)   (4+2=6)
+# 7 ----------------------- Read, Write, and Execute  (rwx)   (1+2+4=7)
+
+# setting permissions with octal values directly
+chmod 664 fileName          
+# '-rw-rw-r--'              # properties show in this letter format when using ls -l
 #   || || |
-#   || || +------- others read
-#   || |+--------- group write
-#   || +---------- group read
-#   |+------------ owner write
-#   +------------- owner read
-chmod u+x file.sh      # Add execute permission for the owner
-chmod g+w file.txt     # Add write permission for the group
-chmod o+r file.txt     # Add read permission for others
-chmod a+x script.sh    # Add execute permission for everyone
-
-
+#   || || +---------------- others read
+#   || |+------------------ group write
+#   || +------------------- group read
+#   |+--------------------- owner write
+#   +---------------------- owner read
 chmod 644 document.txt      # Owner can read and write; Group and Others can only read
 chmod 600 private.key       # Owner can read and write; Group and Others have zero access
 chmod -R 755 /var/www/html  # Applies the permissions to the folder, subfolders, and all contained files
+
+# using letter designations to change permissions:
+chmod u+x file.sh           # Add execute permission for the owner
+chmod g+w file.txt          # Add write permission for the group
+chmod o+r file.txt          # Add read permission for others
+chmod a+x script.sh         # Add execute permission for everyone
 chmod +x script.sh          # Adds execute permission for all users
 chmod u+w report.txt        # Adds write permission for the owner only
 chmod g-w,o-r data.log      # Removes group write and removes others read simultaneously
 chmod o=r public.txt        # Sets others permission strictly to read-only
 
+# using numeric octal addition to change permissions:
+chmod +111 file    # Add execute permission for owner, group, and others
+chmod -022 file    # Remove write permission for group and others
+chmod +004 file    # Add read permission for others
+
 clear                       # clears the screen
 
-cd ~/Documents  # Changes the current path to ('~' Shortcut to User) and other folder
-cd ..           # Go Back one level
-cd              # Go back to home folder
-cd ~            # Go Back to home folder
+# navigating file paths:
+cd ~/Documents              # Changes the current path to ('~' Shortcut to User) and other folder
+cd ..                       # Go Back one level
+cd                          # Go back to home folder
+cd ~                        # Go Back to home folder
 cd ../.. – Moves up two levels at once.
 ```
 ## D
@@ -103,7 +111,8 @@ echo "text to be added to the file" > f1.txt # places text in a text file
 find . -type f -exec stat --printf='%y %12s %n\n' {} + #
 # .  Starts a search in the current directory (.)
 # -type f: Filters the search to look only for regular files (excluding directories or links).
-# -exec ... {} +: Runs the specified command (stat) on all the files found, grouping them together for speed.stat: A utility used to display detailed file or file system status.
+# -exec ... {} +: Runs the specified command (stat) on all the files found, grouping them together for speed.stat:
+#     A utility used to display detailed file or file system status.
 # --printf="...": Formats the output using specific placeholders (similar to the programming language C):
 # %y: Displays the human-readable date and time of the last data modification. %12s: Displays the file size in bytes, padded with spaces to be exactly 12 characters wide 
 # %n: Displays the file name (including its relative path).\n: Moves to a new line for each file.
