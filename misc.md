@@ -41,12 +41,12 @@ cat >> filename.txt
   Add Line 4
   ## Press Ctrl+D to save and exit.
 
-# changing file priveliges:
+# changing file permissions:
 chmod 777 fileName  # Changes file priveledges for all users to read/write/execute (Usually frowned upon for security reasons)
 #     |||
-#     ||+--- Represents the Owner of the file
-#     |+---- Respresents the Group the file belongs to
-#     +----- Represents Others (anyone else on the system)
+#     ||+---------- Represents the Owner of the file
+#     |+----------- Respresents the Group the file belongs to
+#     +------------ Represents Others (anyone else on the system)
 #  Numeric Values are octal representations with the following meanings:
 The numbers are calculated by adding the assigned values for Read (4), Write (2), and Execute (1).
 # 0 - No permissions (---)
@@ -57,6 +57,21 @@ The numbers are calculated by adding the assigned values for Read (4), Write (2)
 # 5 - Read and Execute (r-x)
 # 6 - Read and Write (rw-)
 # 7 - Read, Write, and Execute (rwx)
+# default permissions
+chmod 664 fileName # properties show in this letter format when using ls -l
+# '-rw-rw-r--'
+#   || || |
+#   || || +------- others read
+#   || |+--------- group write
+#   || +---------- group read
+#   |+------------ owner write
+#   +------------- owner read
+chmod u+x file.sh      # Add execute permission for the owner
+chmod g+w file.txt     # Add write permission for the group
+chmod o+r file.txt     # Add read permission for others
+chmod a+x script.sh    # Add execute permission for everyone
+
+
 chmod 644 document.txt      # Owner can read and write; Group and Others can only read
 chmod 600 private.key       # Owner can read and write; Group and Others have zero access
 chmod -R 755 /var/www/html  # Applies the permissions to the folder, subfolders, and all contained files
