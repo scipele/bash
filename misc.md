@@ -83,9 +83,9 @@ chmod g-w,o-r data.log      # Removes group write and removes others read simult
 chmod o=r public.txt        # Sets others permission strictly to read-only
 
 # using numeric octal addition to change permissions:
-chmod +111 file    # Add execute permission for owner, group, and others
-chmod -022 file    # Remove write permission for group and others
-chmod +004 file    # Add read permission for others
+chmod +111 file             # Add execute permission for owner, group, and others
+chmod -022 file             # Remove write permission for group and others
+chmod +004 file             # Add read permission for others
 
 clear                       # clears the screen
 
@@ -126,25 +126,25 @@ find . -type f -exec sha1sum {} + | sort | awk 'BEGIN {FS="  "} {hash=$1; file=s
 
 # list bare file names only (without paths) in the current directory and its subdirectories:
 find . -type f -printf "%f\n" > list.txt
-# find .,                # Searches recursively starting from the current directory (.).
-# -type f,               Restricts the results to only files (excluding directories).
-# -printf "%f\n",        Prints only the bare filename (%f) followed by a newline character (\n) for each result. 
-# > list.txt,            Redirects the output to a file named 'list.txt'.
+# find .,                   # Searches recursively starting from the current directory (.).
+# -type f,                  Restricts the results to only files (excluding directories).
+# -printf "%f\n",           Prints only the bare filename (%f) followed by a newline character (\n) for each result. 
+# > list.txt,               Redirects the output to a file named 'list.txt'.
 
 # List the file name and the content of each file
 for file in f1.csv f2.csv; do echo "Filename: $file"; cat "$file"; echo ""; done
 ```
 ## G
 ```bash
-grep -r "search_string" .     # search string in files within the current dir and its subdirectories (-r):
+grep -r "search_string" .   # search string in files within the current dir and its subdirectories (-r):
 ```
 ## H
 ```bash
-head -n 10 filename.txt   # Displays the first 10 lines of the file
+head -n 10 filename.txt     # Displays the first 10 lines of the file
 ```
 ## I
 ```bash
-info  # Reads documentation and manuals in the Info format (similar to man).
+info                        # Reads documentation and manuals in the Info format (similar to man).
 ```
 ## J
 ```bash
@@ -158,7 +158,6 @@ kill # : Sends a specific signal (like termination or manual stop) to a running 
 ## L
 ```bash
 locate ls
-
 
 ls                          # lists files
 ls -l                       # lists files long format
@@ -177,11 +176,6 @@ mkdir my_folder             # create folder that does not have spaces in it
 ```bash
 nano filename.txt           # edit a text file
 nl | grep -n "hat" *.txt    # shows the line number of any *.txt
-
-# use combination of nl and grep to search for a specific string in all files 
-# within the current directory and its subdirectories, while also displaying line numbers:
-# how about the working director only? use -maxdepth 1 to limit the search to the current directory only
-nl -ba -s ': ' $(find . -maxdepth 1 -type f) | grep "search_string"
 ```
 ## O
 ```bash
