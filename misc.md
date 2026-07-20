@@ -65,8 +65,9 @@ cd ../.. – Moves up two levels at once.
 ```
 ## D
 ```bash
+# date usage
 echo $(( ( $(date -d "2026-12-25" +%s) - $(date -d "2026-07-19" +%s) ) / 86400 )) # Computes number of days between two dates
-# you can also dowload 'dateutils'
+# you can also download 'dateutils'
 ```
 ## E
 ```bash
@@ -220,8 +221,9 @@ wc -w names.txt # counts words
 ```
 ## X
 ```bash
-xxd f1.csv # Creates a hex dump of a given file or standard input, or converts a hex dump back into its original binary format.
-xxd -r hex_output.txt restored.bin # Convert Hex Back to Binary:The -r flag stands for "reverse"
+xxd f1.csv                          # Creates a hex dump of a given file or standard input
+xxd -r hex_output.txt restored.bin  # Convert Hex Back to Binary:The -r flag stands for "reverse"
+xxd -b example.bin                  # displays the binary content of the file
 ```
 ## Y
 ```bash
