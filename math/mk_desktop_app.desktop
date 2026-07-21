@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=mk_desktop_app
+Exec=bash -i /home/ts/Desktop/scr/mk_desktop_app.sh
+Icon=/home/ts/Desktop/scr/mk_desktop_app.png
+Terminal=true
+
