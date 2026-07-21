@@ -161,6 +161,7 @@ locate ls
 
 ls                          # lists files
 ls -l                       # lists files long format
+ls -1d "$(pwd)"/*           # lists files with full path (-1 one per line)
 ls -1                       # lists files vertically
 ls -R                       # lists files recursively
 ls -lR                      # lists files in long format and recursively
