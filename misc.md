@@ -105,6 +105,7 @@ echo $(( ( $(date -d "2026-12-25" +%s) - $(date -d "2026-07-19" +%s) ) / 86400 )
 ## E
 ```bash
 echo "text to be added to the file" > f1.txt # places text in a text file
+exit                        # exits terminal
 ```
 ## F
 ```bash
@@ -167,6 +168,8 @@ ls -R                       # lists files recursively
 ls -lR                      # lists files in long format and recursively
 ls -laR                     # lists files in long format and recursively
 ls -R /path/to/directory    # Target a specific path
+
+lsb_release -a              # display current version of ubuntu
 ```
 ## M
 ```bash
