@@ -206,10 +206,11 @@ rmdir my_folder             # remove folder that does not have spaces in it
 ## S
 ```bash
 sha1sum *                   # hashes files in the current path
-sudu                        # Superuser Do, Linux equivalent of clicking "Run as Administrator" in Windows
+sudu                        # superuser Do, Linux equivalent of clicking "Run as Administrator" in Windows
+su                          # short for "substitute user" or "switch user"
 
 # find and replace using 'sed'
-sed -i 's/old_string/new_string/g' filename.txt
+```sed``` -i 's/old_string/new_string/g' filename.txt
 sort f1.csv | uniq
 ```
 
