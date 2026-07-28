@@ -212,6 +212,11 @@ su                          # short for "substitute user" or "switch user"
 # find and replace using 'sed'
 ```sed``` -i 's/old_string/new_string/g' filename.txt
 sort f1.csv | uniq
+
+#sort a csv file with a header
+(head -n 1 f1.csv && tail -n +2 f1.csv | sort -t, -k1,1) > f1_sorted.csv
+
+
 ```
 
 ## T
