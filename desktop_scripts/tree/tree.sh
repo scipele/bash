@@ -4,14 +4,19 @@
 draw_tree() {
     local target_dir="$1"
     local visual_indent="$2"
+
+    # Conditionally enable dotglob based on user preference
+    if [ "$show_hidden" == "y" ]; then
+        shopt -s dotglob
+    fi
     
-    # Enable dotglob to include hidden files/folders in the expansion
-    shopt -s dotglob
     local dir_contents=("$target_dir"/*)
-    shopt -u dotglob # Disable dotglob to keep default shell behavior elsewhere
     
+    # Always disable dotglob after expansion to keep default shell behavior
+    shopt -u dotglob
+
     # Handle empty directory edge case
-    [ -e "${dir_contents}" ] || return
+    [ -e "${dir_contents[0]}" ] || return
 
     local count=${#dir_contents[@]}
     local current_index=0
@@ -19,12 +24,12 @@ draw_tree() {
     for item in "${dir_contents[@]}"; do
         ((current_index++))
         local base_item=$(basename "$item")
-        
+
         # Explicitly skip current (.) and parent (..) directory links
         if [ "$base_item" == "." ] || [ "$base_item" == ".." ]; then
             continue
         fi
-        
+
         # Check if it is the last item in the current folder level
         if [ "$current_index" -eq "$count" ]; then
             echo -e "${visual_indent}└── $base_item"
@@ -56,6 +61,11 @@ if [ ! -d "$target_path" ]; then
     echo "Error: '$target_path' is not a valid directory."
     exit 1
 fi
+
+# Ask user if they want to show hidden items
+read -p "Show hidden items? (y/N): " choice
+# Convert response to lowercase and default to 'n' if empty
+show_hidden=$(echo "$choice" | tr '[:upper:]' '[:lower:]')
 
 # Execute starting at the verified path
 echo "$target_path"
