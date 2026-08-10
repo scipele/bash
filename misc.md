@@ -234,6 +234,9 @@ tar -cvf zp.tar *.pdf       # zips pdfs to an archive named zp.tar  see typical 
 #-z:                        Compresses or decompresses using Gzip (.tar.gz or .tgz)
 # -j:                       Compresses or decompresses using Bzip2 (.tar.bz2)
 ```
+tree -L 3 .                 Shows tree structure 3 levels deep
+
+
 ## U
 ```bash
 uptime                      # shows the uptime for the current user
